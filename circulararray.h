@@ -8,7 +8,7 @@ private:
     T *array;
     int capacity;
     int back, front;
-
+    
 public:
     CircularArray();
     CircularArray(int _capacity);
@@ -21,12 +21,12 @@ public:
     bool is_full();
     bool is_empty();
     int size();
-    void display();
     void clear();
     T &operator[](int);
     void sort();
     bool is_sorted();
-    CircularArray *reverse();
+    void reverse();
+    string to_string(string sep=" ");
 
 private:
     int next(int);
@@ -42,9 +42,9 @@ CircularArray<T>::CircularArray()
 template <class T>
 CircularArray<T>::CircularArray(int _capacity)
 {
+    this->array = new T[_capacity];
     this->capacity = _capacity;
     this->front = this->back = -1;
-    this->array = new T[_capacity];
 }
 
 template <class T>
@@ -66,21 +66,10 @@ int CircularArray<T>::next(int index)
 }
 
 template <class T>
-bool CircularArray<T>::is_empty()
+string CircularArray<T>::to_string(string sep)
 {
-    return front == -1;
-}
-
-template <class T>
-bool CircularArray<T>::is_full()
-{
-    return front == next(back) && !is_empty();
-}
-
-template <class T>
-void CircularArray<T>::display()
-{
+    string result = ""; 
     for (int i = 0; i < size(); i++)
-        cout << (*this)[i] << ",";
-    cout << endl;
+        result += std::to_string((*this)[i]) + sep;
+    return result;    
 }
